@@ -6,29 +6,48 @@
 	<link rel=stylesheet href="lab.css">
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body class="paper">
 	<div id="app">
-		<input type="number">
+		<input type="number" v-model="number">
+		<input type="number" v-model="num">
 		<div class="space"></div>
-		<h4>{{number}} x 1 = x</h4>
-		<h4>{{number}} x 2 = x</h4>
-		<h4>{{number}} x 3 = x</h4>
-		<h4>{{number}} x 4 = x</h4>
-		<h4>{{number}} x 5 = x</h4>
-		<h4>{{number}} x 6 = x</h4>
-		<h4>{{number}} x 7 = x</h4>
-		<h4>{{number}} x 8 = x</h4>
-		<h4>{{number}} x 9 = x</h4>
-		<h4>{{number}} x 10 = x</h4>
-		<h4>{{number}} x 11 = x</h4>
-		<h4>{{number}} x 12 = x</h4>
+		<h4 >แม่สูตรคูณ {{number}}</h4>
+
+		<table bordercolor="red">
+			<thead>
+				<tr>
+					<th>ตัวต้น</th>
+					<th>ตัวคูณ</th>
+					<th>ผลลัพธ์</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for = "i in r">
+					<td>{{number}}</td>
+					<td>x {{i}}</td>
+					<td class ="row">{{multiply(i)}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<script>
 		let app = new Vue({
 			el: '#app',
 			data: {
-				number: 2
+				number:2,
+				num:1,
+			},
+			methods: {
+				multiply: function(x){
+					return this.number*x
+				}
+			},
+			computed: {
+				r: function(){
+					return parseInt(this.num)
+				},
 			}
 		})
 	</script>
