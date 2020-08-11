@@ -13,6 +13,7 @@
 		<input type="number" v-model="num">
 		<div class="space"></div>
 		<h4 >แม่สูตรคูณ {{number}}</h4>
+		<h4>สูตรคูรแม่ก่อนหน้า คือแม่{{number-1}}</h4>
 
 		<table bordercolor="red">
 			<thead>
@@ -38,6 +39,7 @@
 			data: {
 				number:2,
 				num:1,
+				before_n:1,
 			},
 			methods: {
 				multiply: function(x){
@@ -47,8 +49,14 @@
 			computed: {
 				r: function(){
 					return parseInt(this.num)
-				},
+				}
+			},
+			watch: {
+				n: function(a,b){
+					this.before_n = a
+				}
 			}
+			
 		})
 	</script>
 </body>
