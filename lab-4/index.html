@@ -35,7 +35,7 @@
 
 	<script>
 		let picklight = "20%" //เลือกว่ารอบนี้ อันพิเศษจะมีความสว่าง 20%
-		document.registerElement('a-dot') //ให้ vue รู้จัก a-dot
+		//document.registerElement('a-dot') //ให้ vue รู้จัก a-dot
 
 		function rand(start,stop){//สร้างฟังก์ชัน random ไว้ใช้
 			let shift = (stop-start)+1
@@ -70,6 +70,7 @@
 					this.pick = rand(1,this.row*this.row);
 					console.log('Correct!')
 					this.h = rand(0,360)
+					document.querySelector('#canvas').style.setProperty('--picklight',picklight);
 				}
 			}
 		})
