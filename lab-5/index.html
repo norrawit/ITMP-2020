@@ -19,9 +19,10 @@
 				<div class="box _path" 
 				v-for="i in 14" 
 				:data-pst="i"></div>
-				<div class="box _toggle" data-pst="10" data-isrightarrow="1"></div>
+				<div class="box _toggle" data-pst="10"  :data-isrightarrow="isRightArrow"></div>
 
-				<div class="box _fruit" :data-pst="f.pst" v-for="f in fruits"></div>
+				<div class="box _fruit"
+				v-for="f in fruits" :data-pst="f.pst" :data-type="f.type"></div>
 
 				<div class="box _origin"></div>
 				<div class="box _12" data-pst="12"></div>
