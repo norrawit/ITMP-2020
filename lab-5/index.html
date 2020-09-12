@@ -30,56 +30,85 @@
 			</main>
 		</section>
 		<section id="canvas_footer">
-			<div v-if="play" class="btn" id="toggle">
+			<div v-if="play" class="btn" id="toggle" @click="swap">
 				Toggle
 			</div>
-			<div v-if="!play" class="btn" id="endgame">
-				Ene Game
+			<div v-if="!play" class="btn" id="endgame" onclick="location.reload()">
+				End Game
 			</div>
 		</section>
 	</div>
 
 	<script>
-		function rand(start,stop){
-			let shift = (stop-start)+1
-			return Math.floor(Math.random()*100%shift)+start
+		function rand(start, stop) {
+			let shift = (stop - start) + 1
+			return Math.floor(Math.random() * 100 % shift) + start
 		}
-		
-		let fruitCount = 3
+
+
+		let nextFruitId = 5
 		let isRightArrow = 1
 		let speed = 1000
 		let app = new Vue({
-			el:'#canvas',
-			data:{
+			el: '#canvas',
+			data: {
 				isRightArrow: isRightArrow,
 				speed: speed,
-				play:true,
-				turn:0,
-				score:0,
-				fruits:[
-					{id:1,type:'red',pst:5,run:true,step:1},
-					{id:2,type:'yellow',pst:2,run:true,step:1},
+				play: true,
+				turn: 0,
+				score: 0,
+				fruits: [
+					{ id: 1, type: 'yellow', pst: 5, run: true, step: 1 },
+					{ id: 2, type: 'red', pst: 2, run: true, step: 1 },
+					{ id: 3, type: 'red', pst: 4, run: true, step: 1 },
+					{ id: 4, type: 'yellow', pst: 6, run: true, step: 1 },
+
 				]
 			},
-			methods:{},
-			computed:{},
+			methods:{
+				swap: function () {
+					this.isRightArrow = 1 - this.isRightArrow
+				}
+			},
 			watch:{
-				turn: function(x){
-					let count = this.fruits.length
-					for(let f in this.fruits){
-						let run = this.fruits[f].run
-						if(run){
-								this.fruits[f].pst = this.fruits[f].pst+1
+				turn: function () {
+					for (let i in this.fruits) {
+						let f = this.fruits[i];
+						if(f.run){
+						if(f.pst == 10){
+							f.step = this.isRightArrow*2+1
+
 						}
-						console.log()
+						if([12,16].indexOf(f.pst) != -1){
+							f.run = false
+							if([12,16].indexOf(f.pst) == ['red','yellow' ].indexOf(f.type)){
+								this.score++
+							}else{
+								this.play = false
+								clearInterval(playing)
+							}
+							
+
+						}else{
+							f.pst += f.step
+							}
+						}				
 					}
 				}
 			}
 		})
-
-		let playing = setInterval(function(){
-			app.turn++
-		},speed)
+		let playing = setInterval(function () {
+				app.turn++
+				if(rand(0,1)){
+					let type = 'red'
+					if(rand(0,1)){
+						type = 'yellow'
+					}
+					app.fruits.push({id:nextFruitId, type:type, pst:0, run:true, step:1})
+					nextFruitId++
+				}
+			
+		}, speed)
 	</script>
 </body>
 </html>
